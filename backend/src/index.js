@@ -23,6 +23,15 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../../frontend/index.html"));
 });
 
+app.get("/db-check", async (req, res) => {
+  try {
+    const result = await pool.query('SELECT 1 + 1 AS result');
+    res.json({ status: "ok", db: "connected", data: result.rows[0] });
+  } catch (err) {
+    res.status(500).json({ status: "error", message: err.message });
+  }
+});
+
 app.use(usersRoutes);
 
 app.listen(PORT);
