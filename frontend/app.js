@@ -1,4 +1,4 @@
-const API = "/users";
+const API = "https://crud-usuarios-yea9.onrender.com/users";
 let editando = null;
 
 const form = document.getElementById("form");
