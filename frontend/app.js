@@ -1,4 +1,4 @@
-const url = "http://localhost:3000/users";
+const API = "/users";
 let editando = null;
 
 const form = document.getElementById("form");
@@ -15,7 +15,7 @@ cancelar.addEventListener("click", cancelarEdicion);
 
 async function cargarUsuarios() {
     try {
-        const res = await fetch(url);
+        const res = await fetch(API);
         const usuarios = await res.json();
         
         tabla.innerHTML = "";
@@ -47,7 +47,7 @@ async function agregarUsuario(e) {
 
     try {
         if (editando) {
-            const res = await fetch(url + "/" + editando, {
+            const res = await fetch(API + "/" + editando, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(datos)
@@ -55,7 +55,7 @@ async function agregarUsuario(e) {
             alert("Usuario actualizado");
             cancelarEdicion();
         } else {
-            const res = await fetch(url, {
+            const res = await fetch(API, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(datos)
@@ -90,7 +90,7 @@ function cancelarEdicion() {
 async function eliminar(id) {
     if (confirm("¿Estás seguro?")) {
         try {
-            await fetch(url + "/" + id, { method: "DELETE" });
+            await fetch(API + "/" + id, { method: "DELETE" });
             alert("Usuario eliminado");
             cargarUsuarios();
         } catch (error) {
